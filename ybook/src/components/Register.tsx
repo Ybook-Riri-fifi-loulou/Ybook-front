@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useRef, useState } from 'react'
-import userPool, {userData} from '../UserPool';
+import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
 export interface RegisterPageProps {}
@@ -9,15 +9,8 @@ const Register: React.FC<RegisterPageProps> = () => {
   const [givenName, setGivenName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  // cognitoUser.confirmRegistration('123456789', true, function(err, result) {
-  //   if (err) {
-  //     alert(err.message || JSON.stringify(err));
-  //     return;
-  //   }
-  //   console.log('call result :' + result);
-  // });
+  const [code, setCode] = useState('');
+  let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
 
   const handleSubmit = (e : SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,8 +30,20 @@ const Register: React.FC<RegisterPageProps> = () => {
         alert(err.message || JSON.stringify(err));
         return;
       }
-      var cognitoUser = result?.user;
-      console.log('user name is ' + cognitoUser?.getUsername());
+      cognitoUser.current = result?.user;
+      console.log('user name is ' + cognitoUser.current?.getUsername());
+    });
+  }
+
+  const handleConfirmCode = (e : SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(cognitoUser.current);
+    cognitoUser.current?.confirmRegistration(code, true, function(err, result) {
+      if (err) {
+        alert(err.message || JSON.stringify(err));
+        return;
+      }
+      console.log('call result :' + result);
     });
   }
 
@@ -58,6 +63,13 @@ const Register: React.FC<RegisterPageProps> = () => {
         </form>
       </div>
       <br />
+      <div>
+        <form onSubmit={handleConfirmCode}>
+          <label htmlFor="code">Confirmation code</label>
+          <input type="text" name='code' id='code' onChange={(e) => setCode(e.currentTarget.value)} value={code} required/>
+          <button type="submit">Confirmer</button>
+        </form>
+      </div>
     </>
   )
 }
