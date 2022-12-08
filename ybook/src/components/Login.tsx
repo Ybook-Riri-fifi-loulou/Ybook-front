@@ -1,35 +1,50 @@
-import React from 'react'
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { userData } from '../UserPool';
+import React, { SyntheticEvent, useRef, useState } from 'react'
+import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { getUserData } from '../UserPool';
 
-export interface LoginPageProps {}
+export interface LoginPageProps { }
 
-const Login : React.FC<LoginPageProps> = () => {
-  var authenticationData = {
-    Username : '...', // your username here
-    Password : '...', // your password here
-  };
+const Login: React.FC<LoginPageProps> = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+  const handleLogin = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: function (result) {
-      console.log('access token + ' + result.getAccessToken().getJwtToken());
-    },
+    const userData = getUserData(email);
+    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+      {
+        Username: email,
+        Password: password,
+      }
+    );
 
-    onFailure: function(err) {
-      alert(err);
-    },
+    // Username : falcatiremi@gmail.com
+    // Password : aaAA11++
 
-    mfaRequired: function(codeDeliveryDetails) {
-      var verificationCode = prompt('Please input verification code' ,'');
-      cognitoUser.sendMFACode(verificationCode as any, this);
-    }
-  });
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: function (result) {
+        console.log('access token + ' + result.getAccessToken().getJwtToken());
+      },
+
+      onFailure: function (err) {
+        alert(err);
+      },
+    });
+  }
 
   return (
-    <div>Login</div>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email" onChange={(e) => setEmail(e.currentTarget.value)} value={email} required />
+        <label htmlFor="password">Password</label>
+        <input type="password" name="password" id="password" onChange={(e) => setPassword(e.currentTarget.value)} value={password} required />
+        <button type='submit'>Login</button>
+      </form>
+    </div>
   )
 }
 
