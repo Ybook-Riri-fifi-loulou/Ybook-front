@@ -69,6 +69,7 @@ const Register: React.FC<RegisterPageProps> = () => {
           <input type="text" name='code' id='code' onChange={(e) => setCode(e.currentTarget.value)} value={code} required/>
           <button type="submit">Confirmer</button>
         </form>
+        <br />
       </div>
     </>
   )
