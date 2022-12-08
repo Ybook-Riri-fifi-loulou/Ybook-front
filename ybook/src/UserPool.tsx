@@ -6,9 +6,5 @@ var pooldata = {
 }
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(pooldata);
-export const userData = {
-	Username: 'test',
-	Pool: userPool,
-};
 
 export default userPool;
