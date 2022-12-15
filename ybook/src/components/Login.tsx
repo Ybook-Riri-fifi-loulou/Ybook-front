@@ -2,13 +2,16 @@ import React, { SyntheticEvent, useRef, useState } from 'react'
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { getUserData } from '../UserPool';
 import logo from '../logo.png';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 export interface LoginPageProps { }
 
 const Login: React.FC<LoginPageProps> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { loginUser, registerUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,15 +28,8 @@ const Login: React.FC<LoginPageProps> = () => {
     // Password : aaAA11++
 
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function (result) {
-        console.log('access token + ' + result.getAccessToken().getJwtToken());
-      },
-
-      onFailure: function (err) {
-        alert(err);
-      },
-    });
+    loginUser(cognitoUser, authenticationDetails);
+    navigate('/');
   }
 
   return (
