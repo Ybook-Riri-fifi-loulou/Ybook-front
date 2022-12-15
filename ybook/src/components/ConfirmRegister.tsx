@@ -1,13 +1,14 @@
 import React, {SyntheticEvent, useState} from 'react'
+import { useAuth } from '../providers/AuthContext';
 
 
 const ConfirmRegister : React.FC = () => {
   const [code, setCode] = useState('');
+  const { currentUser } = useAuth();
 
   const handleConfirmCode = (e : SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(cognitoUser.current);
-    cognitoUser.current?.confirmRegistration(code, true, function(err, result) {
+    currentUser?.confirmRegistration(code, true, function(err : any, result:any) {
       if (err) {
         alert(err.message || JSON.stringify(err));
         return;
