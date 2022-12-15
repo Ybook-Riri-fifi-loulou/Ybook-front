@@ -1,18 +1,17 @@
 import React, { SyntheticEvent, useRef, useState } from 'react'
-import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import logo from '../logo.png';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import { useAuth } from '../providers/AuthContext';
 
 export interface RegisterPageProps {}
 
 const Register: React.FC<RegisterPageProps> = () => {
-  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [givenName, setGivenName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
+  const { registerUser } = useAuth();
 
   const handleSubmit = (e : SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,17 +23,7 @@ const Register: React.FC<RegisterPageProps> = () => {
     attributeList.push(attributeName);
     attributeList.push(attributeGivenName);
 
-    userPool.signUp(email, password, attributeList, null as any, function(
-      err,
-      result
-    ) {
-      if (err) {
-        alert(err.message || JSON.stringify(err));
-        return;
-      }
-      cognitoUser.current = result?.user;
-      console.log('user name is ' + cognitoUser.current?.getUsername());
-    });
+    registerUser(email,password, attributeList)
   }
 
   return (
