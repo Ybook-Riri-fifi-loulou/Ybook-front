@@ -2,16 +2,16 @@ import React, { SyntheticEvent, useRef, useState } from 'react'
 import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import logo from '../logo.png';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 export interface RegisterPageProps {}
 
 const Register: React.FC<RegisterPageProps> = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [givenName, setGivenName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [code, setCode] = useState('');
   let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
 
   const handleSubmit = (e : SyntheticEvent<HTMLFormElement>) => {
@@ -34,18 +34,6 @@ const Register: React.FC<RegisterPageProps> = () => {
       }
       cognitoUser.current = result?.user;
       console.log('user name is ' + cognitoUser.current?.getUsername());
-    });
-  }
-
-  const handleConfirmCode = (e : SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(cognitoUser.current);
-    cognitoUser.current?.confirmRegistration(code, true, function(err, result) {
-      if (err) {
-        alert(err.message || JSON.stringify(err));
-        return;
-      }
-      console.log('call result :' + result);
     });
   }
 
@@ -85,16 +73,6 @@ const Register: React.FC<RegisterPageProps> = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <br />
-      <div>
-        <form onSubmit={handleConfirmCode}>
-          <label htmlFor="code">Confirmation code</label>
-          <input type="text" name='code' id='code' onChange={(e) => setCode(e.currentTarget.value)} value={code} required/>
-          <button type="submit">Confirmer</button>
-        </form>
-        <br />
       </div>
     </>
   )
