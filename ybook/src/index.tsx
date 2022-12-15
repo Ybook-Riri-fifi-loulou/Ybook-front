@@ -4,15 +4,18 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { GlobalProvider } from './providers/GlobalProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <GlobalProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </GlobalProvider>
   </React.StrictMode>
 );
 
