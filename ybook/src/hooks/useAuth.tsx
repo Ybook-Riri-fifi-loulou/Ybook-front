@@ -1,18 +1,13 @@
 import React, {PropsWithChildren, useRef, createContext, useContext, useState} from 'react';
 import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { useGlobal } from '../providers/GlobalProvider';
+import { useNavigate } from 'react-router-dom';
 
-export type AuthContextType = {
-  currentUser?: AmazonCognitoIdentity.CognitoUser;
-  registerUser: (email: string, password: string, attributeList: AmazonCognitoIdentity.CognitoUserAttribute[])=>void;
-  loginUser: (cognitoUser : AmazonCognitoIdentity.CognitoUser ,authenticationDetails : AmazonCognitoIdentity.AuthenticationDetails)=>void;
-}
-
-const AuthContext = createContext<AuthContextType>(null!);
-
-export const AuthProvider = ({ children } : PropsWithChildren<unknown>) => {
+const useAuth = () => {
   let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
-  let [currentUser, setCurrentUser] = useState<AmazonCognitoIdentity.CognitoUser>();
+  const {currentUser, setCurrentUser} = useGlobal()
+  const navigate = useNavigate();
 
   const registerUser = (email: string, password: string, attributeList: AmazonCognitoIdentity.CognitoUserAttribute[]) => {
     userPool.signUp(email, password, attributeList, null as any, function(
@@ -25,8 +20,8 @@ export const AuthProvider = ({ children } : PropsWithChildren<unknown>) => {
       }
       cognitoUser.current = result?.user;
       console.log('user name is ' + cognitoUser.current?.getUsername());
-
       setCurrentUser(result?.user);
+      navigate('/confirmation');
     });
   }
 
@@ -42,17 +37,18 @@ export const AuthProvider = ({ children } : PropsWithChildren<unknown>) => {
     });
   }
 
-  const contextData = {
-    currentUser,
-    registerUser,
-    loginUser
+  const confirmRegister = (code: string) => {
+    currentUser?.confirmRegistration(code, true, function(err : any, result:any) {
+      if (err) {
+        alert(err.message || JSON.stringify(err));
+        return;
+      }
+      console.log('call result :' + result);
+      navigate('/');
+    });
   }
 
-  return (
-    <AuthContext.Provider value={contextData}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return {loginUser, registerUser, confirmRegister}
 }
 
-export const useAuth = () => useContext(AuthContext);
+export default useAuth

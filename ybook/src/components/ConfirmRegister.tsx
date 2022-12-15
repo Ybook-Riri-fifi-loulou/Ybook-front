@@ -1,20 +1,14 @@
 import React, {SyntheticEvent, useState} from 'react'
-import { useAuth } from '../providers/AuthContext';
-
+import useAuth from '../hooks/useAuth';
+import { useGlobal } from '../providers/GlobalProvider';
 
 const ConfirmRegister : React.FC = () => {
   const [code, setCode] = useState('');
-  const { currentUser } = useAuth();
+  const { confirmRegister } = useAuth();
 
   const handleConfirmCode = (e : SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    currentUser?.confirmRegistration(code, true, function(err : any, result:any) {
-      if (err) {
-        alert(err.message || JSON.stringify(err));
-        return;
-      }
-      console.log('call result :' + result);
-    });
+    confirmRegister(code);
   }
 
 
