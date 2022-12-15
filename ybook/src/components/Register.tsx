@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useRef, useState } from 'react'
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import logo from '../logo.png';
 import {Link} from 'react-router-dom';
-import { useAuth } from '../providers/AuthContext';
+import useAuth from '../hooks/useAuth';
 
 export interface RegisterPageProps {}
 

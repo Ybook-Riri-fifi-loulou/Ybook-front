@@ -3,14 +3,14 @@ import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { getUserData } from '../UserPool';
 import logo from '../logo.png';
 import {Link, useNavigate} from 'react-router-dom';
-import { useAuth } from '../providers/AuthContext';
+import useAuth from '../hooks/useAuth';
 
 export interface LoginPageProps { }
 
 const Login: React.FC<LoginPageProps> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginUser } = useAuth();
+  const { loginUser, registerUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = (e: SyntheticEvent<HTMLFormElement>) => {
