@@ -18,10 +18,10 @@ function Footer() {
                             <Link to="/">Home</Link>
                         </div>
                         <div className="navbar-burger-item">
-                            <Link to="/login">Login</Link>
+                            <a href="/login">Login</a>
                         </div>
                         <div className="navbar-burger-item">
-                            <Link to="/register">Register</Link>
+                            <a href="/register">Register</a>
                         </div>
                     </div>
                 </div>
