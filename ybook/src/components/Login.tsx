@@ -24,16 +24,6 @@ const Login: React.FC<LoginPageProps> = () => {
     // Username : falcatiremi@gmail.com
     // Password : aaAA11++
 
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function (result) {
-        console.log('access token + ' + result.getAccessToken().getJwtToken());
-      },
-
-      onFailure: function (err) {
-        alert(err);
-      },
-    });
   }
 
   return (
@@ -62,7 +52,6 @@ const Login: React.FC<LoginPageProps> = () => {
             </form>
             <span className='login-redirect'>Pas de compte ?<Link to='/register'>Inscrivez-vous</Link></span>
           </div>
-          {/* example : https://dribbble.com/shots/18890725-Log-in-page-Untitled-UI */}
         </div>
       </div>
     </div>
