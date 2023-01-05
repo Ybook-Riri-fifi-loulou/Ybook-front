@@ -30,6 +30,7 @@ const Login: React.FC<LoginPageProps> = () => {
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     loginUser(cognitoUser, authenticationDetails);
     navigate('/');
+    
   }
 
   return (
@@ -58,7 +59,6 @@ const Login: React.FC<LoginPageProps> = () => {
             </form>
             <span className='login-redirect'>Pas de compte ?<Link to='/register'>Inscrivez-vous</Link></span>
           </div>
-          {/* example : https://dribbble.com/shots/18890725-Log-in-page-Untitled-UI */}
         </div>
       </div>
     </div>

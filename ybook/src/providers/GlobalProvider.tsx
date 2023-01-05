@@ -26,3 +26,4 @@ export const GlobalProvider = ({ children } : PropsWithChildren<unknown>) => {
 }
 
 export const useGlobal = () => useContext(GlobalContext);
+
