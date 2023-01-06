@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { User } from '../hooks/useAuth';
-import Post from './SinglePost';
+import SinglePost from './SinglePost';
 
 export interface ListPostsPage {}
 
@@ -9,7 +9,12 @@ export type Post = {
   htmlContent: string;
   id: number;
   userId : number;
-  user : User
+  user : User;
+  postLikes : Like
+}
+
+export type Like = {
+  userId : number
 }
 
 const ListPosts : React.FC<ListPostsPage> = () => {
@@ -22,12 +27,10 @@ const ListPosts : React.FC<ListPostsPage> = () => {
       .catch(err => console.log(err))
   }, []);
 
-  console.log(posts);
-
   return (
     <div>
       <h1>ListPosts</h1>
-      <Post posts={posts ?? []} />
+      <SinglePost posts={posts ?? []} setPosts={setPosts} />
     </div>
   )
 }
