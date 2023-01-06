@@ -13,25 +13,21 @@ interface Props {
 
 const SinglePost: React.FC<Props> = ({ posts, setPosts }) => {
   const addLike = async (postId: number) => {
-    const response = await fetch(`http://localhost:3100/postLikes`, {
-      method: 'POST',
+    await fetch(`http://localhost:3100/postLikes`, {
+      method: 'PATCH',
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        userId: 25,
+        userId: 17,
         postId
       })
     })
 
-    fetch(`http://localhost:3100/post/${postId}`)
+    fetch('http://localhost:3100/post/')
       .then(response => response.json())
-      .then(
-        res => {
-          let newPosts = posts
-          newPosts[_.findIndex(posts, { id: postId })] = res
-          setPosts([...newPosts])
-        })
+      .then(res => setPosts(res))
+      .catch(err => console.log(err))
   }
 
   const triggerComments = () => { }
