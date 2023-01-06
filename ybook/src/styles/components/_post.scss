@@ -5,7 +5,7 @@
   box-shadow: 1px 4px 15px 1px rgb(0 0 0 / 10%);
 
   &:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
   }
 }
 
@@ -46,4 +46,44 @@
 
 .post-content__image {
   border-radius: 8px;
+}
+
+.post-footer {
+  padding-left: 3.75rem;
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.post-footer__likes,
+.post-footer__comments,
+.post-footer__share {
+  a {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity .15s ease-in-out;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+}
+
+.post-footer__share {
+  margin-left: auto;
+}
+
+.post-footer__likes-icon,
+.post-footer__comments-icon,
+.post-footer__share-icon {
+  font-size: 1.125rem;
+}
+
+.post-footer__likes-count,
+.post-footer__comments-count {
+  line-height: 1;
+  font-size: .9375rem;
 }

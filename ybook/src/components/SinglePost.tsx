@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
-import { Post } from './ListPosts';
+import { Post } from './ListPosts'
+import { FiThumbsUp } from 'react-icons/fi'
+import { FaRegComment } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { RiShareForward2Line } from 'react-icons/ri'
 
 interface Props {
   posts: Post[];
 }
+
+const triggerLike = () => {}
+const triggerComments = () => {}
+const triggerShare = () => {}
 
 const SinglePost : React.FC<Props> = ({posts}) => {
   return (
@@ -20,7 +28,26 @@ const SinglePost : React.FC<Props> = ({posts}) => {
             </div>
             <div className='post-content'>
               <p className='post-content__text'>{post.htmlContent}</p>
-              <img src="https://via.placeholder.com/300x200" alt="" className='post-content__image' loading='lazy'/>
+              <img src="https://res.cloudinary.com/drxtvqede/image/upload/v1672993634/dog_d70r0m.jpg" alt="" className='post-content__image img-fluid' loading='lazy'/>
+            </div>
+            <div className="post-footer">
+              <div className="post-footer__likes">
+                <Link to='#' onClick={triggerLike}>
+                  <FiThumbsUp className='post-footer__likes-icon' />
+                  <span className='post-footer__likes-count'>26</span>
+                </Link>
+              </div>
+              <div className="post-footer__comments">
+                <Link to='#' onClick={triggerComments}>
+                  <FaRegComment className='post-footer__comments-icon' />
+                  <span className='post-footer__comments-count'>13</span>
+                </Link>
+              </div>
+              <div className="post-footer__share">
+                <Link to="#" onClick={triggerShare}>
+                  <RiShareForward2Line className='post-footer__share-icon' />
+                </Link>
+              </div>
             </div>
           </div>
         )
