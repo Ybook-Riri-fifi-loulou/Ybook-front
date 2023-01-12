@@ -10,7 +10,7 @@ export interface LoginPageProps { }
 const Login: React.FC<LoginPageProps> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginUser, registerUser } = useAuth();
+  const { loginUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = (e: SyntheticEvent<HTMLFormElement>) => {
@@ -30,7 +30,6 @@ const Login: React.FC<LoginPageProps> = () => {
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     loginUser(cognitoUser, authenticationDetails);
     navigate('/');
-    
   }
 
   return (
