@@ -32,7 +32,7 @@ function Footer() {
                         <Link to="/"><AiFillHome size={30}/></Link>
                     </div>
                     <div className="footer-item" id="footer-center-button">
-                        <Link to=""><AiOutlinePlus size={30} color="white"/></Link>
+                        <Link to="/addpost"><AiOutlinePlus size={30} color="white"/></Link>
                     </div>
                     <div className="footer-item">
                         <Link to=""><MdOutlineMessage size={30}/></Link>
