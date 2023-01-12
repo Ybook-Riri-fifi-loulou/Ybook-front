@@ -19,6 +19,22 @@ const usePost = () => {
     await refetch();
   }
 
+  const addComment = async (htmlContent: string, postId: number) => {
+    await fetch('http://localhost:3100/postComments', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        htmlContent,
+        userId: 17,
+        postId
+      })
+    })
+
+    await refetch();
+  }
+
   const checkIfPostIsLiked = (post : Post) : boolean => {
     let ret = false;
     const found = post.postLikes.find(like => like.userId === 17);
@@ -28,7 +44,7 @@ const usePost = () => {
     return ret;
   }
 
-  return {addLike, posts, checkIfPostIsLiked}
+  return {addLike, posts, checkIfPostIsLiked, addComment}
 }
 
 export default usePost;

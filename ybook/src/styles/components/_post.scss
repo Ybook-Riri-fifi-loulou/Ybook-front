@@ -100,9 +100,42 @@
   padding-right: .25rem;
 }
 
+.post-comment-section__item__commenttext {
+  margin-bottom: 0;
+}
+
+.post-comment-section__item {
+  padding-bottom: .75rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba($black, .1);
+}
+
 .post-comment-section__item-header {
   display: flex;
   gap: .875rem;
   align-items: center;
   margin-bottom: .25rem;
+}
+
+.post-comment-section__form {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.post-comment-section__textarea {
+  width: 90%;
+  border-radius: 1.25rem;
+  padding-left: .9375rem;
+  padding-right: .9375rem;
+  font-size: .875rem;
+  border-color: rgba($black, .1);
+  resize: none;
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline-color: rgba($black, .1);
+  }
 }
