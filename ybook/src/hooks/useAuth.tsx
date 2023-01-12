@@ -3,7 +3,11 @@ import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { useGlobal } from '../providers/GlobalProvider';
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from "jwt-decode";
+export type User = {
+  email : string;
+  firstname : string;
+  lastname : string;
+}
 
 const useAuth = () => {
   let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
@@ -30,10 +34,10 @@ const useAuth = () => {
     cognitoUser?.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
         const token = result.getIdToken().getJwtToken();
-        const tokenJSON = JSON.stringify(token);
-        console.log(tokenJSON);
-        const decodedToken: any = jwt_decode(token);
-        console.log(decodedToken);
+        // const tokenJSON = JSON.stringify(token);
+        // console.log(tokenJSON);
+        // const decodedToken: any = jwt_decode(token);
+        // console.log(decodedToken);
         // if (window.location.pathname === '/login?confirmed=true') {
           const requestOptions = {
             method: 'POST',
