@@ -87,3 +87,18 @@
   line-height: 1;
   font-size: .9375rem;
 }
+
+.post-comment-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba($black, .1);
+  padding-left: .25rem;
+  padding-right: .25rem;
+}
+
+.post-comment-section__item-header {
+  display: flex;
+  gap: .875rem;
+  align-items: center;
+  margin-bottom: .25rem;
+}
