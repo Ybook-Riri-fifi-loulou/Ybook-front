@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { RiShareForward2Line } from 'react-icons/ri'
 import usePost from '../hooks/usePost'
 import { Post, Comment } from '../providers/PostProvider'
+import { MdThumbUpAlt, MdOutlineThumbUpOffAlt } from 'react-icons/md'
 
 interface Props {
   post: Post;
@@ -33,9 +34,9 @@ const SinglePost: React.FC<Props> = ({ post }) => {
         <div className="post-footer__likes">
           <Link to='#' onClick={() => addLike(post.id)}>
             {checkIfPostIsLiked(post) ?
-              <FaThumbsUp className='post-footer__likes-icon' />
+              <MdThumbUpAlt className='post-footer__likes-icon' />
               :
-              <FiThumbsUp className='post-footer__likes-icon' />
+              <MdOutlineThumbUpOffAlt className='post-footer__likes-icon' />
             }
             <span className='post-footer__likes-count'>{Object.keys(post.postLikes).length}</span>
           </Link>
