@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import { FiThumbsUp } from 'react-icons/fi'
-import { FaRegComment, FaThumbsUp } from 'react-icons/fa'
+import React, { SyntheticEvent, useState, KeyboardEvent } from 'react'
+import { FaRegComment } from 'react-icons/fa'
+import { IoMdSend } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { RiShareForward2Line } from 'react-icons/ri'
 import usePost from '../hooks/usePost'
 import { Post, Comment } from '../providers/PostProvider'
 import { MdThumbUpAlt, MdOutlineThumbUpOffAlt } from 'react-icons/md'
+import TextareaAutosize from 'react-textarea-autosize'
 
 interface Props {
   post: Post;
@@ -14,7 +15,17 @@ interface Props {
 
 const SinglePost: React.FC<Props> = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
-  const { addLike, checkIfPostIsLiked } = usePost();
+  const [commentText, setCommentText] = useState('');
+  const { addLike, checkIfPostIsLiked, addComment } = usePost();
+
+  const handleCommentFormSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      addComment(commentText, post.id);
+      setCommentText('');
+    }
+  }
+
   const triggerShare = () => { }
 
   return (
@@ -55,14 +66,20 @@ const SinglePost: React.FC<Props> = ({ post }) => {
       </div>
       {showComments ?
         <div className='post-comment-section'>
+          <div className="post-comment-section__form-container">
+            <form className='post-comment-section__form'>
+              <img src="https://i.pravatar.cc/36" alt="" className='post-header__image' width={36} height={36} loading="lazy" />
+              <TextareaAutosize className='post-comment-section__textarea' onChange={(e) => setCommentText(e.currentTarget.value)} value={commentText}  onKeyDown={handleCommentFormSubmit} placeholder='Ecrivez un commentaire...' required/>
+            </form>
+          </div>
           {(post.postComments).map((comment : Comment) => {
             return (
               <div className='post-comment-section__item' key={comment.id}>
                 <div className="post-comment-section__item-header">
                   <img src="https://i.pravatar.cc/36" alt="" className='post-header__image' width={36} height={36} loading="lazy" />
-                  <span>{comment.user['firstname'] +  comment.user['lastname']}</span>
+                  <span>{comment.user['firstname']} {comment.user['lastname']}</span>
                 </div>
-                <p>{comment.text}</p>
+                <p className='post-comment-section__item__commenttext'>{comment.text}</p>
               </div>
             )
           })}
