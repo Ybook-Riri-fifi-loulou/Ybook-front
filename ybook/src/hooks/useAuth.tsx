@@ -3,6 +3,11 @@ import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { useGlobal } from '../providers/GlobalProvider';
 import { useNavigate } from 'react-router-dom';
+export type User = {
+  email : string;
+  firstname : string;
+  lastname : string;
+}
 
 const useAuth = () => {
   let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
