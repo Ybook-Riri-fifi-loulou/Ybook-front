@@ -13,8 +13,7 @@ interface Props {
 
 const SinglePost: React.FC<Props> = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
-  const { addLike } = usePost();
-  const checkIfPostIsLiked = (postId : number) => {} // fonction qui permettra d'afficher l'icon pouce rempli si l'user a deja like le post
+  const { addLike, checkIfPostIsLiked } = usePost();
   const triggerShare = () => { }
 
   return (
@@ -33,11 +32,11 @@ const SinglePost: React.FC<Props> = ({ post }) => {
       <div className="post-footer">
         <div className="post-footer__likes">
           <Link to='#' onClick={() => addLike(post.id)}>
-            {/* {checkIfPostIsLiked(post.id) ? */}
+            {checkIfPostIsLiked(post) ?
+              <FaThumbsUp className='post-footer__likes-icon' />
+              :
               <FiThumbsUp className='post-footer__likes-icon' />
-              {/* : */}
-              {/* <FaThumbsUp className='post-footer__likes-icon' /> */}
-            {/* } */}
+            }
             <span className='post-footer__likes-count'>{Object.keys(post.postLikes).length}</span>
           </Link>
         </div>

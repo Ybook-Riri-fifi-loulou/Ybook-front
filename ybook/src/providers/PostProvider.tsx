@@ -13,7 +13,7 @@ export type Post = {
   id: number;
   userId : number;
   user : User;
-  postLikes : Like;
+  postLikes : Like[];
   postComments : any;
 }
 
