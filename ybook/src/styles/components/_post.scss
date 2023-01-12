@@ -53,6 +53,7 @@
   display: flex;
   gap: 1.5rem;
   margin-top: 1rem;
+  align-items: baseline;
 }
 
 .post-footer__likes,
@@ -76,7 +77,10 @@
   margin-left: auto;
 }
 
-.post-footer__likes-icon,
+.post-footer__likes-icon {
+  font-size: 1.25rem;
+}
+
 .post-footer__comments-icon,
 .post-footer__share-icon {
   font-size: 1.125rem;
