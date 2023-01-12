@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { usePostData } from "../providers/PostProvider";
+import { Post, usePostData } from "../providers/PostProvider";
 
 const usePost = () => {
   const {posts, refetch} = usePostData();
@@ -19,7 +19,16 @@ const usePost = () => {
     await refetch();
   }
 
-  return {addLike, posts}
+  const checkIfPostIsLiked = (post : Post) : boolean => {
+    let ret = false;
+    const found = post.postLikes.find(like => like.userId === 17);
+    if(found !== undefined) {
+      ret = true;
+    }
+    return ret;
+  }
+
+  return {addLike, posts, checkIfPostIsLiked}
 }
 
 export default usePost;
