@@ -14,7 +14,7 @@ export type Post = {
   userId : number;
   user : User;
   postLikes : Like[];
-  postComments : any;
+  postComments : Comment[];
 }
 
 export type Like = {
