@@ -39,13 +39,16 @@ const useAuth = () => {
       onSuccess: function (result) {
         const token = result.getIdToken().getJwtToken();
         const decodedToken: any = jwt_decode(token);
+        localStorage.setItem("token_local", token)
         // const user_email = decodedToken['email'];
         // localStorage.setItem('email_saved', user_email);
         // console.log(user_email);
           const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token: token })
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+            },
           };
 
           cognitoUser.getUserAttributes(function (err, attributes) {

@@ -8,7 +8,8 @@ const usePost = () => {
     await fetch(`http://localhost:3100/postLikes`, {
       method: 'PATCH',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
       },
       body: JSON.stringify({
         userId: 17,
@@ -23,7 +24,8 @@ const usePost = () => {
     await fetch('http://localhost:3100/postComments', {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
       },
       body: JSON.stringify({
         htmlContent,
