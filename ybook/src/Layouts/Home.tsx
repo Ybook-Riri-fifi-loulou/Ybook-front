@@ -1,11 +1,13 @@
 import React from 'react'
 import ListPosts from '../components/ListPosts'
+import useAuth from '../hooks/useAuth';
 import { useGlobal } from '../providers/GlobalProvider'
 import { PostProvider } from '../providers/PostProvider';
 
 const Home : React.FC = () => {
-  const data = useGlobal();
-  console.log(data);
+  const {currentUser} = useGlobal();
+  // const { getCurrentUser } = useAuth();
+  // console.log(currentUser);
 
   return (
     <div className='homepage'>
