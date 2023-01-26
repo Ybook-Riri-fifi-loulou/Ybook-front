@@ -43,15 +43,8 @@ const useAuth = () => {
         // const user_email = decodedToken['email'];
         // localStorage.setItem('email_saved', user_email);
         // console.log(user_email);
-          const requestOptions = {
-            method: 'POST',
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("token_local")}`
-            },
-          };
 
-          cognitoUser.getUserAttributes(function (err, attributes) {
+        cognitoUser.getUserAttributes(function (err, attributes) {
           if (err) {
             console.log(err);
           } else {
@@ -64,17 +57,23 @@ const useAuth = () => {
           }
         });
 
-          fetch('http://localhost:3100/user/', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-              setUserInfo(data);
-              navigate('/');
-            });
+        fetch('http://localhost:3100/user/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            setUserInfo(data);
+            navigate('/');
+          });
 
 
 
       },
-      
+
       onFailure: function (err) {
         alert(err);
       },
@@ -108,9 +107,9 @@ const useAuth = () => {
 
         cognitoUser?.getUserAttributes(function (err, attributes) {
           if (err) {
-            
+
           } else {
-            
+
           }
         });
       });
