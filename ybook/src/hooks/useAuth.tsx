@@ -1,21 +1,25 @@
-import React, {PropsWithChildren, useRef, createContext, useContext, useState} from 'react';
+import React, { PropsWithChildren, useRef, createContext, useContext, useState } from 'react';
 import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { useGlobal } from '../providers/GlobalProvider';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
+
 export type User = {
-  email : string;
-  firstname : string;
-  lastname : string;
+  id: number;
+  email: string;
+  firstname: string;
+  lastname: string;
 }
 
 const useAuth = () => {
   let cognitoUser = useRef<AmazonCognitoIdentity.CognitoUser>();
-  const {currentUser, setCurrentUser} = useGlobal()
+  const { currentUser, setCurrentUser, setUserInfo } = useGlobal()
   const navigate = useNavigate();
 
+
   const registerUser = (email: string, password: string, attributeList: AmazonCognitoIdentity.CognitoUserAttribute[]) => {
-    userPool.signUp(email, password, attributeList, null as any, function(
+    userPool.signUp(email, password, attributeList, null as any, function (
       err,
       result
     ) {
@@ -30,30 +34,44 @@ const useAuth = () => {
     });
   }
 
-  const loginUser = (cognitoUser : AmazonCognitoIdentity.CognitoUser, authenticationDetails : AmazonCognitoIdentity.AuthenticationDetails) => {
-    cognitoUser?.authenticateUser(authenticationDetails, {
+  const loginUser = (cognitoUser: AmazonCognitoIdentity.CognitoUser, authenticationDetails: AmazonCognitoIdentity.AuthenticationDetails) => {
+    cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
         const token = result.getIdToken().getJwtToken();
-        // const tokenJSON = JSON.stringify(token);
-        // console.log(tokenJSON);
-        // const decodedToken: any = jwt_decode(token);
-        // console.log(decodedToken);
-        // if (window.location.pathname === '/login?confirmed=true') {
+        const decodedToken: any = jwt_decode(token);
+        // const user_email = decodedToken['email'];
+        // localStorage.setItem('email_saved', user_email);
+        // console.log(user_email);
           const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token : token })
+            body: JSON.stringify({ token: token })
           };
 
-          fetch('http://localhost:3100/user/', requestOptions) 
+          cognitoUser.getUserAttributes(function (err, attributes) {
+          if (err) {
+            console.log(err);
+          } else {
+            attributes?.forEach(attribute => {
+              if (attribute.getName() === 'email') {
+                const user_email = attribute.getValue();
+                localStorage.setItem('email_saved', user_email);
+              }
+            });
+          }
+        });
+
+          fetch('http://localhost:3100/user/', requestOptions)
             .then(response => response.json())
             .then(data => {
-              console.log(data);
+              setUserInfo(data);
               navigate('/');
             });
-        // }
-      },
 
+
+
+      },
+      
       onFailure: function (err) {
         alert(err);
       },
@@ -61,7 +79,7 @@ const useAuth = () => {
   }
 
   const confirmRegister = (code: string) => {
-    currentUser?.confirmRegistration(code, true, function(err : any, result:any) {
+    currentUser?.confirmRegistration(code, true, function (err: any, result: any) {
       if (err) {
         alert(err.message || JSON.stringify(err));
         return;
@@ -71,7 +89,32 @@ const useAuth = () => {
     });
   }
 
-  return {loginUser, registerUser, confirmRegister}
+  const getCurrentUser = () => {
+    let cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser != null) {
+      cognitoUser.getSession(function (err: any, session: any) {
+        if (err) {
+          alert(err.message || JSON.stringify(err));
+          return;
+        }
+        // console.log('session validity: ' + session.isValid());
+
+        if (session.isValid()) {
+          setCurrentUser(cognitoUser);
+        }
+
+        cognitoUser?.getUserAttributes(function (err, attributes) {
+          if (err) {
+            
+          } else {
+            
+          }
+        });
+      });
+    }
+  }
+
+  return { loginUser, registerUser, confirmRegister, getCurrentUser }
 }
 
 export default useAuth
