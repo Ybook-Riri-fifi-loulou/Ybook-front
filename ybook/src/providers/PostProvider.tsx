@@ -35,7 +35,13 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
 
 
   const refetch = () =>
-    fetch('http://localhost:3100/post/')
+    fetch('http://localhost:3100/post/', {
+      method : "GET",
+      headers : {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+      }
+    })
     .then(response => response.json())
     .then(res => setPosts(res))
     .catch(err => console.log(err))

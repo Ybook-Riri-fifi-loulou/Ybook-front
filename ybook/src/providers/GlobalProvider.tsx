@@ -24,7 +24,13 @@ export const GlobalProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   const sessionVality = async  (session: AmazonCognitoIdentity.CognitoUserSession) => {
     if (session?.isValid()) {
-        await fetch(`http://localhost:3100/user/${email_saved}`)
+        await fetch(`http://localhost:3100/user/${email_saved}`, {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+          }
+        })
         .then(response => response.json())
         .then(data => {
           setUserInfo(data);

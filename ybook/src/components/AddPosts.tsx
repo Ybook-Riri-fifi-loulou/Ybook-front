@@ -11,7 +11,10 @@ const AddPosts: React.FC<AddPostsProps> = () => {
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+            },
             body: JSON.stringify({ htmlContent: message, userId: userId})
         }
 
