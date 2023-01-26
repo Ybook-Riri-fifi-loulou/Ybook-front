@@ -57,7 +57,7 @@ const useAuth = () => {
           }
         });
 
-        fetch('http://localhost:3100/user/', {
+        fetch(`http://localhost:3100/user/${localStorage.getItem('email_saved')}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -69,9 +69,6 @@ const useAuth = () => {
             setUserInfo(data);
             navigate('/');
           });
-
-
-
       },
 
       onFailure: function (err) {

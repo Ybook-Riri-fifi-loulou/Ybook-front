@@ -29,7 +29,6 @@ const Login: React.FC<LoginPageProps> = () => {
 
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     loginUser(cognitoUser, authenticationDetails);
-    navigate('/');
   }
 
   return (
