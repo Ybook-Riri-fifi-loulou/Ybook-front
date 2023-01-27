@@ -37,3 +37,83 @@
 .section-title {
   margin-bottom: 1rem;
 }
+
+// Friend item
+.friend-items {
+  padding-bottom: 5rem;
+
+  .friend-item {
+    &:not(:last-child) {
+      margin-bottom: .625rem;
+    }
+  }
+}
+.friend-item {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: center;
+  box-shadow: -1px 5px 25px -3px rgba($black, .3);
+  border-radius: 5px;
+  position: relative;
+}
+
+.friend-item__avatar {
+  border-radius: 50%;
+}
+
+.friend-item__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-item__name {
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.friend-item__date {
+  font-weight: 300;
+  font-size: .875rem;
+  opacity: .8;
+}
+
+.friend-item__button {
+  margin-left: auto;
+}
+
+.friend-item__button-icon {
+  font-size: 1.25em;
+}
+
+.friend-item__actions {
+  position: absolute;
+  background-color: $white;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  gap: .5rem;
+  bottom: -50%;
+  transform: translateY(20%);
+  box-shadow: -1px 5px 25px -3px rgba($black, .3);
+  z-index: 1;
+}
+
+.friend-item__actions-button {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .625rem;
+
+  svg {
+    font-size: 1.25em;
+  }
+}
+
+.friend-item__actions-button--trash {
+  color: $danger;
+}
