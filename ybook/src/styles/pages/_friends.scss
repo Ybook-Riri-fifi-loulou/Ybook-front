@@ -1,0 +1,39 @@
+.friends {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.friends-tab {
+  display: flex;
+  gap: .5rem;
+  margin-bottom: 1rem;
+  border-bottom: none;
+
+  .nav-item {
+    .nav-link {
+      border-radius: 50px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 15px;
+      padding-right: 15px;
+      color: $primary;
+      background-color: $white;
+      border: 1px solid $primary;
+      transition: background-color .2s ease-in-out, color .2s ease-in-out;
+
+      &:hover {
+        background-color: $primary;
+        color: $white;
+      }
+
+      &.active {
+        background: $primary;
+        color: $white;
+      }
+    }
+  }
+}
+
+.section-title {
+  margin-bottom: 1rem;
+}
