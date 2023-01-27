@@ -23,6 +23,9 @@ function Footer() {
                         <div className="navbar-burger-item">
                             <a href="/register">Register</a>
                         </div>
+                        <div className="navbar-burger-item">
+                            <Link to="/friends">Amis</Link>
+                        </div>
                     </div>
                 </div>
             </div>
