@@ -1,8 +1,10 @@
 import React from 'react'
 import { useFriendData } from '../providers/FriendProvider'
+import { useGlobal } from '../providers/GlobalProvider';
 
 const useFriends = () => {
   const {refetchFriends, refetchPendingFriendship} = useFriendData();
+  const {userInfo} = useGlobal();
 
   const deleteFriend = async (friendshipId: number) => {
     const response = await fetch(`http://localhost:3100/friendship/${friendshipId}`, {
@@ -53,7 +55,17 @@ const useFriends = () => {
     }
   }
 
-  return {deleteFriend, acceptFriendship, refusedFriendship}
+  const addFriend = async (friendEmail : string) => {
+    await fetch(`http://localhost:3100/friendship/${userInfo?.email}/${friendEmail}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+      }
+    })
+  }
+
+  return {deleteFriend, acceptFriendship, refusedFriendship, addFriend}
 }
 
 export default useFriends

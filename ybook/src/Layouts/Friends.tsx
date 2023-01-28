@@ -1,5 +1,6 @@
 import React from 'react'
 import { Tab, Tabs } from 'react-bootstrap'
+import AddFriend from '../components/AddFriend'
 import FriendList from '../components/FriendList'
 import FriendRequest from '../components/FriendRequest'
 import useFriends from '../hooks/useFriends'
@@ -19,7 +20,7 @@ const Friends : React.FC<FriendsPageProps> = () =>  {
                 <FriendList />
             </Tab>
             <Tab eventKey='addFriend' title='Ajouter' className='friends-tab__item'>
-                <p>Je suis l'ajout d'amis</p>
+              <AddFriend />
             </Tab>
             <Tab eventKey='friends' title='Demande' className='friends-tab__item'>
               <FriendRequest />

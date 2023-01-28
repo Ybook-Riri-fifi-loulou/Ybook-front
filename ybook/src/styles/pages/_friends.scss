@@ -151,3 +151,9 @@
 .friend-item__actions-button--deny {
   color: $danger;
 }
+
+.add-friend {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
