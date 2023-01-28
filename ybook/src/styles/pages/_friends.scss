@@ -80,6 +80,10 @@
 
 .friend-item__button {
   margin-left: auto;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .friend-item__button-icon {
@@ -115,5 +119,35 @@
 }
 
 .friend-item__actions-button--trash {
+  color: $danger;
+}
+
+.friend-item__accept-or-deny {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+
+  .friend-item__actions-button {
+    padding-left: .3125rem;
+    padding-right: .3125rem;
+
+    svg {
+      font-size: 1.75em;
+      transition: opacity .2s ease-in-out;
+    }
+
+    &:hover {
+      svg {
+        opacity: .5;
+      }
+    }
+  }
+}
+
+.friend-item__actions-button--accept {
+  color: $success;
+}
+
+.friend-item__actions-button--deny {
   color: $danger;
 }
