@@ -5,14 +5,14 @@ import SingleFriendshipRequest from './SingleFriendshipRequest';
 interface FriendRequestProps {}
 
 const FriendRequest : React.FC<FriendRequestProps> = () => {
-  const {pendingFriendship} = useFriendData();
+  const {pendingFriendshipTo} = useFriendData();
 
   return (
     <div className='friend-items'>
-      <p>Vous avez {pendingFriendship?.length} demandes d'amis en attentes</p>
-      {pendingFriendship?.map((pendingFriendshipItem) => {
+      <p>Vous avez {pendingFriendshipTo?.length} demandes d'amis en attentes</p>
+      {pendingFriendshipTo?.map((pendingFriendshipItem) => {
         return (
-          <SingleFriendshipRequest key={pendingFriendshipItem.id} friend={pendingFriendshipItem ?? []} />
+          <SingleFriendshipRequest key={pendingFriendshipItem.id} friend={pendingFriendshipItem ?? []} from={false} />
         )
       })}
     </div>
