@@ -3,7 +3,7 @@ import { useFriendData } from '../providers/FriendProvider'
 import { useGlobal } from '../providers/GlobalProvider';
 
 const useFriends = () => {
-  const {refetchFriends, refetchPendingFriendship} = useFriendData();
+  const {refetchFriends, refetchPendingFriendshipTo} = useFriendData();
   const {userInfo} = useGlobal();
 
   const deleteFriend = async (friendshipId: number) => {
@@ -33,7 +33,7 @@ const useFriends = () => {
 
     if (response.status === 200 || response.status === 204) {
       await refetchFriends();
-      await refetchPendingFriendship();
+      await refetchPendingFriendshipTo();
     } else {
       console.log('Something went wrong')
     }
@@ -49,7 +49,7 @@ const useFriends = () => {
     })
 
     if (response.status === 200 || response.status === 204) {
-      await refetchPendingFriendship();
+      await refetchPendingFriendshipTo();
     } else {
       console.log('Something went wrong')
     }
