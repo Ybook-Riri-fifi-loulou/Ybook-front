@@ -5,7 +5,9 @@ import { useGlobal } from "./GlobalProvider";
 
 export type FriendContextType = {
   friends: Friend[] | undefined;
-  refetchFriends(): Promise<void>
+  refetchFriends(): Promise<void>;
+  pendingFriendship: Friend[] | undefined;
+  refetchPendingFriendship(): Promise<void>;
 }
 
 export type Friend = {
@@ -20,6 +22,7 @@ const FriendContext = createContext<FriendContextType>(null!);
 
 export const FriendProvider = ({ children } : PropsWithChildren<unknown>) => {
   const [friends, setFriends] = useState<Friend[]|undefined>();
+  const [pendingFriendship, setPendingFriendship] = useState<Friend[]|undefined>();
   const {userInfo} = useGlobal();
 
   const refetchFriends = () =>
@@ -37,8 +40,23 @@ export const FriendProvider = ({ children } : PropsWithChildren<unknown>) => {
       refetchFriends()
     }, []);
 
+  const refetchPendingFriendship = () =>
+    fetch(`http://localhost:3100/friendship/${userInfo?.id}/pendingfriendship`, {
+      method : "GET",
+      headers : {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+      }
+    })
+    .then(response => response.json())
+    .then(res => setPendingFriendship(res))
+    .catch(err => console.log(err))
+    useEffect(() => {
+      refetchPendingFriendship()
+    }, []);
+
   const friendData = {
-    friends, refetchFriends
+    friends, refetchFriends, pendingFriendship, refetchPendingFriendship
   }
 
   return (
