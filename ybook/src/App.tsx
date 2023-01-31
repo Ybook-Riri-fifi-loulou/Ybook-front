@@ -7,9 +7,9 @@ import Header from './Layouts/Header';
 import Footer from './Layouts/Footer';
 import ConfirmRegister from './components/ConfirmRegister';
 import Home from './Layouts/Home';
-import AddPost from './components/AddPosts';
-import { GlobalProvider, useGlobal } from './providers/GlobalProvider';
 import Friends from './Layouts/Friends';
+import {useGlobal} from "./providers/GlobalProvider";
+import Profil from "./Layouts/Profil";
 
 const location = window.location.pathname;
 
@@ -26,6 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path='/friends' element={<Friends />} />
+              <Route path='/profil' element={<Profil />} />
             </Routes>
             <Footer />
           </>
