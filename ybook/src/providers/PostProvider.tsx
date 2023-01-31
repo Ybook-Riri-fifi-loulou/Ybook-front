@@ -4,6 +4,8 @@ import { User } from "../hooks/useAuth";
 
 export type PostContextType = {
   posts: Post[] | undefined;
+  userPosts: Post[] | undefined;
+  likedPosts: Post[] | undefined;
   refetch(): Promise<void>
 }
 
@@ -32,7 +34,20 @@ const PostContext = createContext<PostContextType>(null!);
 
 export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
   const [posts, setPosts] = useState<Post[]|undefined>();
+  const [userPosts, setUserPosts] = useState<Post[]|undefined>();
+  const [likedPosts, setLikedPosts] = useState<Post[]|undefined>();
 
+  const getProfilPosts = () =>
+    fetch('http://localhost:3100/post/29/posts')
+    .then(response => response.json())
+    .then(res => setUserPosts(res))
+    .catch(err => console.log(err))
+
+  const getLikedPosts = () =>
+      fetch('http://localhost:3100/post/29/likes')
+          .then(response => response.json())
+          .then(res => setLikedPosts(res))
+          .catch(err => console.log(err))
 
   const refetch = () =>
     fetch('http://localhost:3100/post/', {
@@ -47,10 +62,14 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
     .catch(err => console.log(err))
     useEffect(() => {
       refetch()
+      getProfilPosts()
+      getLikedPosts()
     }, []);
 
+
+
   const postData = {
-    posts, refetch
+    posts, userPosts, likedPosts, refetch,
   }
 
   return (
