@@ -9,6 +9,7 @@ import ConfirmRegister from './components/ConfirmRegister';
 import Home from './Layouts/Home';
 import AddPost from './components/AddPosts';
 import { GlobalProvider, useGlobal } from './providers/GlobalProvider';
+import Friends from './Layouts/Friends';
 
 const location = window.location.pathname;
 
@@ -19,11 +20,15 @@ function App() {
   return (
     <>
       <div className="App">
-        <Header />
         {userInfo ?
+          <>
+            <Header />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path='/friends' element={<Friends />} />
             </Routes>
+            <Footer />
+          </>
           :
           <Routes>
             <Route path="/register" element={<Register />} />
@@ -32,16 +37,6 @@ function App() {
             <Route path="/" element={<Login />} />
           </Routes>
         }
-        {/* <Routes>
-          <Route path='/confirmation' element={<ConfirmRegister />} />
-          <Route path="/login" element={<Login />} />
-          {currentUser !== null ?
-              <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/addpost" element={<AddPost />} />
-            : null}
-        </Routes> */}
-        <Footer />
       </div>
     </>
   );

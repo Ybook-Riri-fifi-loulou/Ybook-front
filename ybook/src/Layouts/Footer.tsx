@@ -1,8 +1,10 @@
 import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import Login from '../components/Login'
 import {AiFillHome, AiOutlinePlus} from 'react-icons/ai'
 import {MdOutlineMessage} from 'react-icons/md'
+import { FaUserFriends } from 'react-icons/fa'
+import { IoSettings } from 'react-icons/io5'
+import { BsChatLeftTextFill } from 'react-icons/bs'
 
 function Footer() {
     return (
@@ -23,19 +25,28 @@ function Footer() {
                         <div className="navbar-burger-item">
                             <a href="/register">Register</a>
                         </div>
+                        <div className="navbar-burger-item">
+                            <Link to="/friends">Amis</Link>
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="footer-fixed">
                 <div className="footer-content">
                     <div className="footer-item">
-                        <Link to="/"><AiFillHome size={30}/></Link>
-                    </div>
-                    <div className="footer-item" id="footer-center-button">
-                        <Link to="/addpost"><AiOutlinePlus size={30} color="white"/></Link>
+                        <Link to="/"><AiFillHome className='footer-item__icon' /></Link>
                     </div>
                     <div className="footer-item">
-                        <Link to=""><MdOutlineMessage size={30}/></Link>
+                        <Link to="/friends"><FaUserFriends className='footer-item__icon' /></Link>
+                    </div>
+                    <div className="footer-item footer-item__icon--center">
+                        <Link to="/addpost"><AiOutlinePlus className='footer-item__icon' color='white' /></Link>
+                    </div>
+                    <div className="footer-item">
+                        <Link to="/chat"><BsChatLeftTextFill className='footer-item__icon' /></Link>
+                    </div>
+                    <div className="footer-item">
+                        <Link to='/settings'><IoSettings className='footer-item__icon' /></Link>
                     </div>
                 </div>
             </div>
