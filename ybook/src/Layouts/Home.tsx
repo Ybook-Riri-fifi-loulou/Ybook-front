@@ -15,7 +15,7 @@ const Home : React.FC = () => {
         <div className="row">
           <div className="col-12 col-md-12 col-lg-9">
             <PostProvider>
-              <ListPosts />
+              <ListPosts userposts={""} />
             </PostProvider>
           </div>
           <div className="d-none d-lg-block col-lg-3">

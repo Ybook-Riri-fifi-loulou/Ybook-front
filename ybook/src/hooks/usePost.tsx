@@ -48,7 +48,12 @@ const usePost = () => {
     return ret;
   }
 
-  return {addLike, posts, checkIfPostIsLiked, addComment}
+  const getUserPosts = (userId: number) => {
+    const userPosts = posts?.filter(post => post.userId === userId);
+    return userPosts;
+  }
+
+  return {addLike, posts, checkIfPostIsLiked, addComment, getUserPosts}
 }
 
 export default usePost;
