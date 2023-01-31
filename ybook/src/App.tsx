@@ -10,6 +10,7 @@ import Home from './Layouts/Home';
 import AddPost from './components/AddPosts';
 import { GlobalProvider, useGlobal } from './providers/GlobalProvider';
 import Friends from './Layouts/Friends';
+import Profil from "./Layouts/Profil";
 
 const location = window.location.pathname;
 
@@ -26,6 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path='/friends' element={<Friends />} />
+              <Route path='/profil' element={<Profil />}
             </Routes>
             <Footer />
           </>

@@ -1,17 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import usePost from '../hooks/usePost';
-import { usePostData } from '../providers/PostProvider';
+import React from 'react'
+import {Post, usePostData} from '../providers/PostProvider';
 import SinglePost from './SinglePost';
 
-export interface ListPostsPage {}
+export interface ListPostsPage {
+    userposts: string;
+}
 
-const ListPosts : React.FC<ListPostsPage> = () => {
-  const {posts} = usePostData();
+const ListPosts : React.FC<ListPostsPage> = (userpost) => {
+  const {posts, userPosts, likedPosts} = usePostData();
+  let listPosts: Post[] = [];
+
+  console.log(likedPosts)
+  if (userpost.userposts === "myPosts") {
+      if (userPosts !== undefined)
+      {
+            listPosts = userPosts;
+      }
+  } else if (userpost.userposts === "likedPosts") {
+        if (likedPosts !== undefined)
+        {
+                listPosts = likedPosts;
+        }
+  } else {
+        if (posts !== undefined)
+        {
+                listPosts = posts;
+        }
+  }
 
   return (
     <div>
-      <h1>ListPosts</h1>
-      {posts?.map((post) => {
+      {listPosts?.map((post) => {
         return (
           <SinglePost key={post.id} post={post ?? []} />
         )
