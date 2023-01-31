@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext, PropsWithChildren } from "react";
 import { User } from "../hooks/useAuth";
+import {useGlobal} from "./GlobalProvider";
 
 
 export type PostContextType = {
@@ -36,15 +37,16 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
   const [posts, setPosts] = useState<Post[]|undefined>();
   const [userPosts, setUserPosts] = useState<Post[]|undefined>();
   const [likedPosts, setLikedPosts] = useState<Post[]|undefined>();
+  const {userInfo} = useGlobal();
 
   const getProfilPosts = () =>
-    fetch('http://localhost:3100/post/29/posts')
+    fetch(`http://localhost:3100/post/${userInfo?.id}/posts`)
     .then(response => response.json())
     .then(res => setUserPosts(res))
     .catch(err => console.log(err))
 
   const getLikedPosts = () =>
-      fetch('http://localhost:3100/post/29/likes')
+      fetch(`http://localhost:3100/post/${userInfo?.id}/likes`)
           .then(response => response.json())
           .then(res => setLikedPosts(res))
           .catch(err => console.log(err))
@@ -60,6 +62,8 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
     .then(response => response.json())
     .then(res => setPosts(res))
     .catch(err => console.log(err))
+
+
     useEffect(() => {
       refetch()
       getProfilPosts()

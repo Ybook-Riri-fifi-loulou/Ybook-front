@@ -1,5 +1,6 @@
-import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
-const { S3Client } = require("@aws-sdk/client-s3");
+import React, {useState} from "react";
+import {useGlobal} from "../providers/GlobalProvider";
+const {S3Client} = require("@aws-sdk/client-s3");
 
 
 const useProfil = () => {
@@ -14,12 +15,46 @@ const useProfil = () => {
             while (n--) {
                 u8arr[n] = bstr.charCodeAt(n)
             }
-            return new File([u8arr], filename, { type: mime })
+            return new File([u8arr], filename, {type: mime})
+        }
+    }
+
+    const {userInfo} = useGlobal();
+    const [picture, setPicture] = useState<any>('')
+    let url = '';
+    let key = '';
+
+    const capture = async (webcamRef: any) => {
+        const imageSrc = webcamRef.current?.getScreenshot()
+        setPicture(imageSrc)
+        let file = dataURLToFile(imageSrc, 'test.jpg')
+        if (file !== undefined) {
+            await fetch('http://localhost:3100/post/presignedurl')
+                .then(response => response.json())
+                .then(res => {
+                    url = res.url
+                    key = res.key
+                })
+                .catch(err => console.log(err))
+            await fetch(url, {
+                method: 'PUT',
+                body: file,
+            }).then(response => {
+                console.log(response)
+                console.log(key)
+            }).catch(err => console.log(err))
+            //body vide je sais pas pourquoi
+            await fetch(`http://localhost:3100/user/${userInfo?.id}/profilePicture`, {
+                method: 'PUT',
+                body: key,
+            }).then(response => {
+                console.log(response)
+            }).catch(err => console.log(err))
         }
     }
 
 
-    return { dataURLToFile }
+    return {dataURLToFile, capture, setPicture, picture}
 
 }
 

@@ -10,7 +10,6 @@ const ListPosts : React.FC<ListPostsPage> = (userpost) => {
   const {posts, userPosts, likedPosts} = usePostData();
   let listPosts: Post[] = [];
 
-  console.log(likedPosts)
   if (userpost.userposts === "myPosts") {
       if (userPosts !== undefined)
       {
