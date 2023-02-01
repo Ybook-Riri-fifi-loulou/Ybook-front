@@ -27,7 +27,13 @@ const useProfil = () => {
         setAvatar(imageSrc)
         let file = dataURLToFile(imageSrc, 'test.jpg')
         if (file !== undefined) {
-            await fetch('http://localhost:3100/post/presignedurl')
+            await fetch('http://localhost:3100/post/presignedurl', {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+                },
+            })
                 .then(response => response.json())
                 .then(res => {
                     url = res.url
@@ -48,15 +54,22 @@ const useProfil = () => {
 
 
     const getSignedUrlGet = async (key: string|undefined) => {
-        await fetch(`http://localhost:3100/post/signedurlget/${key}`)
-            .then(response => response.json())
-            .then(res => {
-                url = res
-            }).catch(err => console.log(err))
+        await fetch(`http://localhost:3100/post/signedurlget/${key}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+            },
+        })
+        .then(response => response.json())
+        .then(res => {
+            url = res
+        }).catch(err => console.log(err))
+
         await fetch(url)
-            .then(res => {
-                setAvatar(res.url)
-            }).catch(err => console.log(err))
+        .then(res => {
+            setAvatar(res.url)
+        }).catch(err => console.log(err))
     }
 
     return {dataURLToFile, capture, setAvatar, avatar, getSignedUrlGet, userInfo}

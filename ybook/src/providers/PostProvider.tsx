@@ -40,16 +40,28 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
   const {userInfo} = useGlobal();
 
   const getProfilPosts = () =>
-    fetch(`http://localhost:3100/post/${userInfo?.id}/posts`)
+    fetch(`http://localhost:3100/post/${userInfo?.id}/posts`, {
+      method : "GET",
+      headers : {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+      }
+    })
     .then(response => response.json())
     .then(res => setUserPosts(res))
     .catch(err => console.log(err))
 
   const getLikedPosts = () =>
-      fetch(`http://localhost:3100/post/${userInfo?.id}/likes`)
-          .then(response => response.json())
-          .then(res => setLikedPosts(res))
-          .catch(err => console.log(err))
+      fetch(`http://localhost:3100/post/${userInfo?.id}/likes`, {
+        method : "GET",
+        headers : {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+        }
+      })
+      .then(response => response.json())
+      .then(res => setLikedPosts(res))
+      .catch(err => console.log(err))
 
   const refetch = () =>
     fetch('http://localhost:3100/post/', {
