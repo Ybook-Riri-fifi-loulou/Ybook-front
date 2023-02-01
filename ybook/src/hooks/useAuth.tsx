@@ -114,7 +114,16 @@ const useAuth = () => {
     }
   }
 
-  return { loginUser, registerUser, confirmRegister, getCurrentUser }
+  const logout = () => {
+    let cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser != null) {
+      cognitoUser.signOut();
+      localStorage.clear();
+    }
+    return redirect('/login');
+  }
+
+  return { loginUser, registerUser, confirmRegister, getCurrentUser, logout }
 }
 
 export default useAuth
