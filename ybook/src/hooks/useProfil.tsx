@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import {useGlobal} from "../providers/GlobalProvider";
-const {S3Client} = require("@aws-sdk/client-s3");
-
 
 const useProfil = () => {
 
@@ -20,13 +18,13 @@ const useProfil = () => {
     }
 
     const {userInfo} = useGlobal();
-    const [picture, setPicture] = useState<any>('')
+    const [avatar, setAvatar] = useState<any>('')
     let url = '';
     let key = '';
 
     const capture = async (webcamRef: any) => {
         const imageSrc = webcamRef.current?.getScreenshot()
-        setPicture(imageSrc)
+        setAvatar(imageSrc)
         let file = dataURLToFile(imageSrc, 'test.jpg')
         if (file !== undefined) {
             await fetch('http://localhost:3100/post/presignedurl')
@@ -39,16 +37,11 @@ const useProfil = () => {
             await fetch(url, {
                 method: 'PUT',
                 body: file,
-            }).then(response => {
-                console.log(response)
-                console.log(key)
             }).catch(err => console.log(err))
             //body vide je sais pas pourquoi
             await fetch(`http://localhost:3100/user/${userInfo?.id}/profilePicture`, {
                 method: 'PUT',
                 body: key,
-            }).then(response => {
-                console.log(response)
             }).catch(err => console.log(err))
         }
     }
@@ -62,12 +55,11 @@ const useProfil = () => {
             }).catch(err => console.log(err))
         await fetch(url)
             .then(res => {
-                console.log(res)
-                setPicture(res.url)
+                setAvatar(res.url)
             }).catch(err => console.log(err))
     }
 
-    return {dataURLToFile, capture, setPicture, picture, getSignedUrlGet, userInfo}
+    return {dataURLToFile, capture, setAvatar, avatar, getSignedUrlGet, userInfo}
 
 }
 
