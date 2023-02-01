@@ -1,11 +1,7 @@
 import React, {useState} from "react";
 import Webcam from "react-webcam";
 import useProfil from "../hooks/useProfil";
-import useModal from "../hooks/useModal";
-import ListPosts from "../components/ListPosts";
-import {PostProvider} from "../providers/PostProvider";
 import ProfilTabs from "../components/ProfilTabs";
-import {useGlobal} from "../providers/GlobalProvider";
 
 export interface ProfilProps {
 }
