@@ -10,6 +10,7 @@ export type User = {
   email: string;
   firstname: string;
   lastname: string;
+  avatarS3Key: string;
 }
 
 const useAuth = () => {
