@@ -3,19 +3,19 @@ import {Post, usePostData} from '../providers/PostProvider';
 import SinglePost from './SinglePost';
 
 export interface ListPostsPage {
-    userposts: string;
+    whichposts: string;
 }
 
 const ListPosts : React.FC<ListPostsPage> = (userpost) => {
   const {posts, userPosts, likedPosts} = usePostData();
   let listPosts: Post[] = [];
 
-  if (userpost.userposts === "myPosts") {
+  if (userpost.whichposts === "myPosts") {
       if (userPosts !== undefined)
       {
             listPosts = userPosts;
       }
-  } else if (userpost.userposts === "likedPosts") {
+  } else if (userpost.whichposts === "likedPosts") {
         if (likedPosts !== undefined)
         {
                 listPosts = likedPosts;

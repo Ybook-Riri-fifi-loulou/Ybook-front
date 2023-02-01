@@ -28,13 +28,13 @@ const ProfilTabs: React.FC<ProfilTabsProps> = () => {
                 <div className="tab-pane fade show active" id="tabs-homeJustify" role="tabpanel"
                      aria-labelledby="tabs-home-tabJustify">
                     <PostProvider>
-                        <ListPosts userposts={"myPosts"}/>
+                        <ListPosts whichposts={"myPosts"}/>
                     </PostProvider>
                 </div>
                 <div className="tab-pane fade" id="tabs-profileJustify" role="tabpanel"
                      aria-labelledby="tabs-profile-tabJustify">
                     <PostProvider>
-                        <ListPosts userposts={"likedPosts"}/>
+                        <ListPosts whichposts={"likedPosts"}/>
                     </PostProvider>
                 </div>
             </div>
