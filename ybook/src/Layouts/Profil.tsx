@@ -18,6 +18,7 @@ const Profil: React.FC<ProfilProps> = () => {
         height: 150,
         facingMode: 'user',
     }
+
     getSignedUrlGet(userInfo?.avatarS3Key)
 
     return (

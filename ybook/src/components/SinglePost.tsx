@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState, KeyboardEvent } from 'react'
+import React, { SyntheticEvent, useState, KeyboardEvent, useEffect } from 'react'
 import { FaRegComment } from 'react-icons/fa'
 import { IoMdSend } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -7,6 +7,7 @@ import usePost from '../hooks/usePost'
 import { Post, Comment } from '../providers/PostProvider'
 import { MdThumbUpAlt, MdOutlineThumbUpOffAlt } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize'
+import useProfil from '../hooks/useProfil'
 
 interface Props {
   post: Post;
@@ -17,6 +18,8 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const { addLike, checkIfPostIsLiked, addComment } = usePost();
+  const {getSignedUrlGet, avatar} = useProfil();
+  const [postUserAvatar, setPostUserAvatar] = useState('');
 
   const handleCommentFormSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.keyCode == 13 && e.shiftKey == false) {
@@ -26,12 +29,23 @@ const SinglePost: React.FC<Props> = ({ post }) => {
     }
   }
 
+  useEffect(() => {
+    if(post.user['avatarS3Key'] !== null) {
+      getSignedUrlGet(post.user['avatarS3Key']);
+      setPostUserAvatar(avatar);
+    } else {
+      setPostUserAvatar('https://i.pravatar.cc/48');
+    }
+  }, [])
+
+
+
   const triggerShare = () => { }
 
   return (
     <div className='post' key={post.id} id={`${post.id}`}>
       <div className="post-header">
-        <img src="https://i.pravatar.cc/48" alt="" className='post-header__image' width={48} height={48} loading="lazy" />
+        <img src={postUserAvatar} alt="" className='post-header__image' width={48} height={48} loading="lazy" />
         <div className='post-header__content'>
           <span className='post-header__title'>{post.user['firstname']} {post.user['lastname']}</span>
           <span className='post-header__date'>Posté le {new Intl.DateTimeFormat('fr', { dateStyle: 'medium' }).format(new Date(post.createdAt))}</span>
