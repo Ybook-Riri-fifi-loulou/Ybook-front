@@ -5,8 +5,11 @@ import {MdOutlineMessage} from 'react-icons/md'
 import { FaUserFriends } from 'react-icons/fa'
 import { IoSettings } from 'react-icons/io5'
 import { BsChatLeftTextFill } from 'react-icons/bs'
+import useAuth from '../hooks/useAuth'
+import { Button } from 'react-bootstrap'
 
 function Footer() {
+    const { logout } = useAuth();
     return (
         <>
             <div className="offcanvas offcanvas-end" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -27,6 +30,9 @@ function Footer() {
                         </div>
                         <div className="navbar-burger-item">
                             <Link to="/friends">Amis</Link>
+                        </div>
+                        <div className="navbar-burger-item">
+                            <Button onClick={ logout }><a href="/login">Logout</a></Button>
                         </div>
                     </div>
                 </div>
