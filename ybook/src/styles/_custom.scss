@@ -2,9 +2,15 @@
 @import './variables';
 @import '~bootstrap/scss/bootstrap.scss';
 
+// Import pages
 @import './pages/home';
 @import './pages/login';
 @import './pages/friends';
+@import './pages/profil';
+
+// Import layouts
 @import './layouts/header';
 @import './layouts/footer';
+
+// Import components
 @import './components/post';

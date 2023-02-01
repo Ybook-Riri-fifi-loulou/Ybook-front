@@ -1,0 +1,73 @@
+.profil-page-header {
+  margin-bottom: 1rem;
+}
+
+.profil-page-header__cover {
+  object-fit: cover;
+  aspect-ratio: 16/9;
+
+  @include media-breakpoint-up(md) {
+    aspect-ratio: 16/5;
+  }
+
+  @include media-breakpoint-up(lg) {
+    aspect-ratio: 16/4;
+  }
+}
+
+.profil-page-header__content {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  align-items: center;
+  margin-top: -5rem;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    margin-top: -2rem;
+    gap: 1.5rem;
+  }
+}
+
+.profil-page-header__avatar {
+  border-radius: 50%;
+  border: 4px solid $white;
+  position: relative;
+}
+
+.profil-page-header__update-photo {
+  position: absolute;
+  bottom: .625rem;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 2.1875rem;
+  width: 2.1875rem;
+  background-color: #e2e2e2;
+
+  svg {
+    font-size: 1.25em;
+    color: $black;
+  }
+}
+
+.profil-page-header__infos {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  @include media-breakpoint-up(md) {
+    text-align: left;
+  }
+}
+
+.profil-page-header__name {
+  @include font-size(1.375rem);
+  font-weight: 600;
+}
+
+.profil-page-header__register-date {
+  font-size: .875rem;
+}

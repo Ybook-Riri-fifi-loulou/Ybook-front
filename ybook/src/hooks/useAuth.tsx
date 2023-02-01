@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 
 export type User = {
   id: number;
+  createdAt: Date;
   email: string;
   firstname: string;
   lastname: string;

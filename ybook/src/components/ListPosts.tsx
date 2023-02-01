@@ -29,11 +29,14 @@ const ListPosts : React.FC<ListPostsPage> = (userpost) => {
 
   return (
     <div>
-      {listPosts?.map((post) => {
-        return (
-          <SinglePost key={post.id} post={post ?? []} />
-        )
-      })}
+      {listPosts.length > 0 ?
+        listPosts?.map((post) => {
+          return (
+            <SinglePost key={post.id} post={post ?? []} />
+          )
+        }) :
+       <p className='text-center'>Il n'y a pas de publications disponible</p>
+       }
     </div>
   )
 }
