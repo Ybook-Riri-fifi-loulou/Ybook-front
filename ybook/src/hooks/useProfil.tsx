@@ -54,7 +54,20 @@ const useProfil = () => {
     }
 
 
-    return {dataURLToFile, capture, setPicture, picture}
+    const getSignedUrlGet = async (key: string|undefined) => {
+        await fetch(`http://localhost:3100/post/signedurlget/${key}`)
+            .then(response => response.json())
+            .then(res => {
+                url = res
+            }).catch(err => console.log(err))
+        await fetch(url)
+            .then(res => {
+                console.log(res)
+                setPicture(res.url)
+            }).catch(err => console.log(err))
+    }
+
+    return {dataURLToFile, capture, setPicture, picture, getSignedUrlGet, userInfo}
 
 }
 
