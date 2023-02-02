@@ -19,7 +19,6 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   const [commentText, setCommentText] = useState('');
   const { addLike, checkIfPostIsLiked, addComment } = usePost();
   const {getSignedUrlGet, avatar, setAvatar} = useProfil();
-  const [postUserAvatar, setPostUserAvatar] = useState('');
 
   const handleCommentFormSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.keyCode == 13 && e.shiftKey == false) {

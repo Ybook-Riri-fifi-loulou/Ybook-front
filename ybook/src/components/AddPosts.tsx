@@ -1,50 +1,43 @@
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useState, useEffect } from 'react'
+import usePost from '../hooks/usePost';
+import useProfil from '../hooks/useProfil';
+import noPicture from '../assets/images/no-avatar.png'
+import { useGlobal } from '../providers/GlobalProvider';
 
 export interface AddPostsProps {}
 
 const AddPosts: React.FC<AddPostsProps> = () => {
-    const [message, setMessage] = useState('')
-    const [userId, setUserId] = useState(0)
+    const [message, setMessage] = useState('');
+    const {addPost} = usePost();
+    const {userInfo} = useGlobal();
+    const {getSignedUrlGet, setAvatar, avatar} = useProfil();
 
     const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token_local")}`
-            },
-            body: JSON.stringify({ htmlContent: message, userId: userId})
-        }
-
-        fetch('http://localhost:3100/post', requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
+        addPost(message);
+        setMessage('');
     }
 
+    useEffect(() => {
+        if(userInfo?.avatarS3Key !== null) {
+          getSignedUrlGet(userInfo?.avatarS3Key);
+          setAvatar(avatar);
+        } else {
+          setAvatar(noPicture);
+        }
+      }, [])
+
     return (
-        <div className="addposts mt-5">
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-9 col-md-7 col-lg-6">
-                        <h1>Publier</h1>
-                        <form className="addpost-form" onSubmit={handleSubmit}>
-                            <div className='mb-3'>
-                                <label htmlFor="message" className="addpost-form__label form-label">Message</label>
-                                <textarea className="addpost-form__input form-control" name="message" id="message" onChange={(e) => setMessage(e.currentTarget.value)} value={message} required></textarea>
-                            </div>
-                            <div className='mb-3'>
-                                <label htmlFor="userId" className="addpost-form__label form-label">User ID</label>
-                                <input type="number" className="addpost-form__input form-control" name="userId" id="userId" required onChange={(e) => setUserId(e.currentTarget.valueAsNumber)} value={userId}/>
-                            </div>
-                            <div className='mb-3'>
-                            <button type='submit' className='btn btn-primary addpost-form__submit'>Envoyer</button>
-                            </div>
-                        </form>
+        <div className="add-post">
+            <div className="add-post__container">
+                <h2>Publication rapide</h2>
+                <form className="add-post__form" onSubmit={handleSubmit}>
+                    <img src={avatar} alt="user-avatar" className='add-post__avatar img-fluid rounded-circle' width={48} height={48} loading='lazy'/>
+                    <div>
+                        <textarea className="addpost-form__input form-control" name="message" id="message" onChange={(e) => setMessage(e.currentTarget.value)} value={message} required></textarea>
+                        <button type='submit' className='btn btn-primary addpost-form__submit'>Envoyer</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )

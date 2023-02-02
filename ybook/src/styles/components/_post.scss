@@ -139,3 +139,21 @@
     outline-color: rgba($black, .1);
   }
 }
+
+.add-post__container {
+  display: flex;
+  gap: .5rem;
+  flex-direction: column;
+}
+
+.add-post__form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  > div {
+    display: flex;
+    gap: 1rem;
+    flex: 1 1 100%;
+  }
+}
