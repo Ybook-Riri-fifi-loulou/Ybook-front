@@ -7,7 +7,7 @@ const usePost = () => {
   const {userInfo} = useGlobal();
 
   const addPost = async (message: string) => {
-    await fetch('http://localhost:3100/post', {
+    const response = await fetch('http://localhost:3100/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,8 +19,13 @@ const usePost = () => {
       })
     })
 
-    await refetch();
-    await getProfilPosts();
+    if (response.status === 200 || response.status === 204) {
+      await refetch();
+    } else {
+      console.log('error')
+    }
+
+    // await getProfilPosts();
   }
 
   const addLike = async (postId: number) => {
