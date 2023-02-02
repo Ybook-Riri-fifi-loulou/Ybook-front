@@ -1,6 +1,5 @@
 import React, { SyntheticEvent, useState, KeyboardEvent, useEffect } from 'react'
 import { FaRegComment } from 'react-icons/fa'
-import { IoMdSend } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { RiShareForward2Line } from 'react-icons/ri'
 import usePost from '../hooks/usePost'
@@ -8,6 +7,7 @@ import { Post, Comment } from '../providers/PostProvider'
 import { MdThumbUpAlt, MdOutlineThumbUpOffAlt } from 'react-icons/md'
 import TextareaAutosize from 'react-textarea-autosize'
 import useProfil from '../hooks/useProfil'
+import noPicture from '../assets/images/no-avatar.png'
 
 interface Props {
   post: Post;
@@ -34,7 +34,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
       getSignedUrlGet(post.user['avatarS3Key']);
       setPostUserAvatar(avatar);
     } else {
-      setPostUserAvatar('https://i.pravatar.cc/48');
+      setPostUserAvatar(noPicture);
     }
   }, [])
 
