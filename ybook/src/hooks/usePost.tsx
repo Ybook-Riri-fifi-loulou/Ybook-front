@@ -3,7 +3,7 @@ import { useGlobal } from "../providers/GlobalProvider";
 import { Post, usePostData } from "../providers/PostProvider";
 
 const usePost = () => {
-  const {posts, refetch} = usePostData();
+  const {posts, refetch, getLikedPosts} = usePostData();
   const {userInfo} = useGlobal();
 
   const addLike = async (postId: number) => {
@@ -20,6 +20,7 @@ const usePost = () => {
     })
 
     await refetch();
+    await getLikedPosts();
   }
 
   const addComment = async (htmlContent: string, postId: number) => {
@@ -37,6 +38,7 @@ const usePost = () => {
     })
 
     await refetch();
+    await getLikedPosts();
   }
 
   const checkIfPostIsLiked = (post : Post) : boolean => {
