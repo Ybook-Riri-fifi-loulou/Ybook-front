@@ -18,7 +18,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const { addLike, checkIfPostIsLiked, addComment } = usePost();
-  const {getSignedUrlGet, avatar} = useProfil();
+  const {getSignedUrlGet, avatar, setAvatar} = useProfil();
   const [postUserAvatar, setPostUserAvatar] = useState('');
 
   const handleCommentFormSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -32,9 +32,9 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   useEffect(() => {
     if(post.user['avatarS3Key'] !== null) {
       getSignedUrlGet(post.user['avatarS3Key']);
-      setPostUserAvatar(avatar);
+      setAvatar(avatar);
     } else {
-      setPostUserAvatar(noPicture);
+      setAvatar(noPicture);
     }
   }, [])
 
@@ -45,7 +45,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   return (
     <div className='post' key={post.id} id={`${post.id}`}>
       <div className="post-header">
-        <img src={postUserAvatar} alt="" className='post-header__image' width={48} height={48} loading="lazy" />
+        <img src={avatar} alt="" className='post-header__image' width={48} height={48} loading="lazy" />
         <div className='post-header__content'>
           <span className='post-header__title'>{post.user['firstname']} {post.user['lastname']}</span>
           <span className='post-header__date'>Posté le {new Intl.DateTimeFormat('fr', { dateStyle: 'medium' }).format(new Date(post.createdAt))}</span>
