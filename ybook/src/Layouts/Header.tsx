@@ -23,9 +23,9 @@ function Header() {
                         </Link>
                     </div>
                     <div className="header-item">
-                        <Link to='/login' onClick={logout}>
+                        <a href='/login' onClick={logout}>
                             <AiOutlinePoweroff className='header-item__icon' />
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
