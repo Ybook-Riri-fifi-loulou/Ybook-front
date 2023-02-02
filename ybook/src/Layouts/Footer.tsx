@@ -16,7 +16,7 @@ function Footer() {
                     <Link to="/friends"><FaUserFriends className='footer-item__icon' /></Link>
                 </div>
                 <div className="footer-item footer-item__icon--center">
-                    <Link to="/addpost"><AiOutlinePlus className='footer-item__icon' color='white' /></Link>
+                    <Link to="/" onClick={() => window.scrollTo(0, 0)}><AiOutlinePlus className='footer-item__icon' color='white' /></Link>
                 </div>
                 <div className="footer-item">
                     <Link to="/chat"><BsChatLeftTextFill className='footer-item__icon' /></Link>

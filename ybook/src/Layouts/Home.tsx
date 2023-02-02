@@ -14,16 +14,14 @@ const Home : React.FC = () => {
     <div className='homepage'>
       <div className="container">
         <div className="row gy-4">
-          <div className="col-12 col-md-12 col-lg-9">
-            <PostProvider>
+          <PostProvider>
+            <div className="col-12 col-md-12 col-lg-9">
               <AddPosts />
-            </PostProvider>
-          </div>
-          <div className="col-12 col-md-12 col-lg-9">
-            <PostProvider>
+            </div>
+            <div className="col-12 col-md-12 col-lg-9">
               <ListPosts whichposts={""} />
-            </PostProvider>
-          </div>
+            </div>
+          </PostProvider>
           <div className="d-none d-lg-block col-lg-3">
             friends
           </div>
