@@ -1,4 +1,5 @@
 import React from 'react'
+import AddPosts from '../components/AddPosts';
 import ListPosts from '../components/ListPosts'
 import useAuth from '../hooks/useAuth';
 import { useGlobal } from '../providers/GlobalProvider'
@@ -12,7 +13,12 @@ const Home : React.FC = () => {
   return (
     <div className='homepage'>
       <div className="container">
-        <div className="row">
+        <div className="row gy-4">
+          <div className="col-12 col-md-12 col-lg-9">
+            <PostProvider>
+              <AddPosts />
+            </PostProvider>
+          </div>
           <div className="col-12 col-md-12 col-lg-9">
             <PostProvider>
               <ListPosts whichposts={""} />

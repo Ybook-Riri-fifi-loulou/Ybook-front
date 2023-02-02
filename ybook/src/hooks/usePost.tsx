@@ -6,6 +6,23 @@ const usePost = () => {
   const {posts, refetch, getLikedPosts, getProfilPosts} = usePostData();
   const {userInfo} = useGlobal();
 
+  const addPost = async (message: string) => {
+    await fetch('http://localhost:3100/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token_local")}`
+      },
+      body: JSON.stringify({
+        htmlContent: message,
+        userId: userInfo?.id
+      })
+    })
+
+    await refetch();
+    await getProfilPosts();
+  }
+
   const addLike = async (postId: number) => {
     await fetch(`http://localhost:3100/postLikes`, {
       method: 'PATCH',
@@ -57,7 +74,7 @@ const usePost = () => {
     return userPosts;
   }
 
-  return {addLike, posts, checkIfPostIsLiked, addComment, getUserPosts}
+  return {addLike, posts, checkIfPostIsLiked, addComment, getUserPosts, addPost}
 }
 
 export default usePost;
