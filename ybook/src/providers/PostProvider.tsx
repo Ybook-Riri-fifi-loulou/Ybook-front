@@ -9,6 +9,7 @@ export type PostContextType = {
   likedPosts: Post[] | undefined;
   refetch(): Promise<void>;
   getLikedPosts(): Promise<void>;
+  getProfilPosts(): Promise<void>;
 }
 
 export type Post = {
@@ -81,12 +82,13 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
       refetch()
       getProfilPosts()
       getLikedPosts()
+      getProfilPosts()
     }, []);
 
 
 
   const postData = {
-    posts, userPosts, likedPosts, refetch, getLikedPosts
+    posts, userPosts, likedPosts, refetch, getLikedPosts, getProfilPosts
   }
 
   return (
