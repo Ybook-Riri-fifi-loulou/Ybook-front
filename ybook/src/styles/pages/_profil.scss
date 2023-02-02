@@ -1,10 +1,15 @@
+.profil-page {
+  padding-bottom: 5rem;
+  overflow-y: scroll;
+}
+
 .profil-page-header {
   margin-bottom: 1rem;
 }
 
 .profil-page-header__cover {
   object-fit: cover;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16/7;
 
   @include media-breakpoint-up(md) {
     aspect-ratio: 16/5;
@@ -70,4 +75,31 @@
 
 .profil-page-header__register-date {
   font-size: .875rem;
+}
+
+// Profil tabs
+.profil-tabs {
+  margin-bottom: 2rem;
+  border-top: 1px solid rgba($black, .2);
+  padding-top: 1rem;
+  border-bottom: 0;
+  gap: .25rem;
+
+  .nav-item {
+    &:focus-visible,
+    &:focus {
+      border: 0;
+    }
+  }
+
+  .nav-link {
+    color: $black;
+    border: 0;
+    border-bottom: 3px solid rgba($black, .2);
+
+    &.active {
+      border-color: $primary;
+      color: $primary;
+    }
+  }
 }

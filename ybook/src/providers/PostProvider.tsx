@@ -7,7 +7,8 @@ export type PostContextType = {
   posts: Post[] | undefined;
   userPosts: Post[] | undefined;
   likedPosts: Post[] | undefined;
-  refetch(): Promise<void>
+  refetch(): Promise<void>;
+  getLikedPosts(): Promise<void>;
 }
 
 export type Post = {
@@ -85,7 +86,7 @@ export const PostProvider = ({ children } : PropsWithChildren<unknown>) => {
 
 
   const postData = {
-    posts, userPosts, likedPosts, refetch,
+    posts, userPosts, likedPosts, refetch, getLikedPosts
   }
 
   return (
