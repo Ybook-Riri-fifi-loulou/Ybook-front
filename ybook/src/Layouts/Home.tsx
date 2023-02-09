@@ -9,7 +9,7 @@ const Home : React.FC = () => {
   const {currentUser} = useGlobal();
   // const { getCurrentUser } = useAuth();
   // console.log(currentUser);
-
+    
   return (
     <div className='homepage'>
       <div className="container">

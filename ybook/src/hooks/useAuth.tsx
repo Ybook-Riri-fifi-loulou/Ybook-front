@@ -71,6 +71,8 @@ const useAuth = () => {
             setUserInfo(data);
             navigate('/');
           });
+
+        
       },
 
       onFailure: function (err) {
