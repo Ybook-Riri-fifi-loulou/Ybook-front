@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useRef, createContext, useContext, useState, useEffect } from 'react';
+import React, {PropsWithChildren, useRef, createContext, useContext, useState, useEffect, SetStateAction} from 'react';
 import userPool from '../UserPool';
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { User } from '../hooks/useAuth';
@@ -8,11 +8,10 @@ const email_saved = localStorage.getItem('email_saved');
 
 export type AuthContextType = {
   currentUser?: AmazonCognitoIdentity.CognitoUser;
-  // setCurrentUser: React.Dispatch<React.SetStateAction<AmazonCognitoIdentity.CognitoUser | undefined >>;
-  setCurrentUser: any;
+  setCurrentUser: React.Dispatch<SetStateAction<AmazonCognitoIdentity.CognitoUser | undefined>>;
   userInfo?: User;
-  setUserInfo: any;
-  sessionVality: any;
+  setUserInfo: React.Dispatch<SetStateAction<User | undefined>>;
+  sessionVality: (session: AmazonCognitoIdentity.CognitoUserSession) => void;
 }
 
 const GlobalContext = createContext<AuthContextType>(null!);
@@ -22,9 +21,9 @@ export const GlobalProvider = ({ children }: PropsWithChildren<unknown>) => {
   let [userInfo, setUserInfo] = useState<User | undefined>();
   let cognitoUser = useRef(userPool.getCurrentUser());
 
-  const sessionVality = async  (session: AmazonCognitoIdentity.CognitoUserSession) => {
+  const sessionVality =  (session: AmazonCognitoIdentity.CognitoUserSession) => {
     if (session?.isValid()) {
-        await fetch(`http://localhost:3100/user/${email_saved}`, {
+       fetch(`http://localhost:3100/user/${email_saved}`, {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',

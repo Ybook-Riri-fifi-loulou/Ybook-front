@@ -11,7 +11,6 @@ import noPicture from '../assets/images/no-avatar.png'
 
 interface Props {
   post: Post;
-  setPosts ?: any;
 }
 
 const SinglePost: React.FC<Props> = ({ post }) => {

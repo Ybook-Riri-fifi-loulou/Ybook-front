@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useGlobal} from "../providers/GlobalProvider";
+import Webcam from "react-webcam";
 
 const useProfil = () => {
 
@@ -18,11 +19,11 @@ const useProfil = () => {
     }
 
     const {userInfo} = useGlobal();
-    const [avatar, setAvatar] = useState<any>('')
+    const [avatar, setAvatar] = useState<string | null | undefined>('')
     let url = '';
     let key = '';
 
-    const capture = async (webcamRef: any) => {
+    const capture = async (webcamRef: React.RefObject<Webcam>) => {
         const imageSrc = webcamRef.current?.getScreenshot()
         setAvatar(imageSrc)
         let file = dataURLToFile(imageSrc, 'test.jpg')
@@ -50,6 +51,7 @@ const useProfil = () => {
                 body: key,
             }).catch(err => console.log(err))
         }
+
     }
 
 
