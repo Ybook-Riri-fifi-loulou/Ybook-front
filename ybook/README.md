@@ -10,6 +10,10 @@ Clone le projet
 git clone git@github.com:Ybook-Riri-fifi-loulou/Ybook-front.git
 ```
 
+```bash
+cd ybook
+```
+
 initialise le projet
 
 ```bash 
