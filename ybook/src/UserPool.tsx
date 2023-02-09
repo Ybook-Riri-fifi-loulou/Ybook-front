@@ -1,6 +1,6 @@
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
-var pooldata = {
+let pooldata = {
 	UserPoolId: 'eu-west-3_Iekd8jDeb',
 	ClientId: '7llslfb09dtag2h7117og3ku72'
 }

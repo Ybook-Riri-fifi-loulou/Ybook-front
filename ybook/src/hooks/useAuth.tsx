@@ -4,6 +4,7 @@ import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { useGlobal } from '../providers/GlobalProvider';
 import { redirect, useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import {CognitoUserSession} from "amazon-cognito-identity-js";
 
 export type User = {
   id: number;
@@ -40,7 +41,7 @@ const useAuth = () => {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
         const token = result.getIdToken().getJwtToken();
-        const decodedToken: any = jwt_decode(token);
+        const decodedToken: string = jwt_decode(token);
         localStorage.setItem("token_local", token)
         // const user_email = decodedToken['email'];
         // localStorage.setItem('email_saved', user_email);
@@ -80,9 +81,9 @@ const useAuth = () => {
   }
 
   const confirmRegister = (code: string) => {
-    currentUser?.confirmRegistration(code, true, function (err: any, result: any) {
+    currentUser?.confirmRegistration(code, true, function (err, result) {
       if (err) {
-        alert(err.message || JSON.stringify(err));
+        alert(err?.message || JSON.stringify(err));
         return;
       }
       console.log('call result :' + result);
@@ -93,15 +94,15 @@ const useAuth = () => {
   const getCurrentUser = () => {
     let cognitoUser = userPool.getCurrentUser();
     if (cognitoUser != null) {
-      cognitoUser.getSession(function (err: any, session: any) {
+      cognitoUser.getSession(function (err: Error | null, session: CognitoUserSession | null) {
         if (err) {
           alert(err.message || JSON.stringify(err));
           return;
         }
         // console.log('session validity: ' + session.isValid());
 
-        if (session.isValid()) {
-          setCurrentUser(cognitoUser);
+        if (session!.isValid()) {
+          setCurrentUser(cognitoUser!);
         }
 
         cognitoUser?.getUserAttributes(function (err, attributes) {
