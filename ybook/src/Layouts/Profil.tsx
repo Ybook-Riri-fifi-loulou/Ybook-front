@@ -35,16 +35,8 @@ const Profil: React.FC<ProfilProps> = () => {
                 <div className="container">
                     <div className="profil-page-header__content">
                         <div className="profil-page-header__avatar">
-                            {avatar == '' ? (
-                                <Webcam audio={false} height={150} ref={webcamRef} mirrored={true} width={150} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} />
-                            ) : (
                                 <img src={avatar} className="rounded-circle" />
-                            )}
-                            {avatar != '' ? (
                                 <a href="#" className="profil-page-header__update-photo" onClick={handleShow}><MdOutlineAddAPhoto /></a>
-                                ) : (
-                                <button onClick={(e) => { e.preventDefault(); capture(webcamRef); handleClose() }} className="btn btn-danger">Capture</button>
-                            )}
                         </div>
                         <div className="profil-page-header__infos">
                             <span className="profil-page-header__name">{userInfo?.firstname}  {userInfo?.lastname}</span>
