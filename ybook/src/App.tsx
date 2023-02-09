@@ -10,6 +10,7 @@ import Home from './Layouts/Home';
 import Friends from './Layouts/Friends';
 import {useGlobal} from "./providers/GlobalProvider";
 import Profil from "./Layouts/Profil";
+import Settings from './Layouts/Settings';
 
 const location = window.location.pathname;
 
@@ -27,6 +28,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path='/friends' element={<Friends />} />
               <Route path='/profil' element={<Profil />} />
+              <Route path='/settings' element={<Settings />} />
             </Routes>
             <Footer />
           </>

@@ -1,8 +1,26 @@
 import React, {useState} from "react";
 import {useGlobal} from "../providers/GlobalProvider";
 import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
 
 const useProfil = () => {
+    const navigate = useNavigate();
+    const {userInfo} = useGlobal();
+
+    const updateProfilInfos = async (firstname: string, lastname: string) => {
+        await fetch(`http://localhost:3100/user/${userInfo?.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                firstname,
+                lastname
+            })
+        })
+
+        navigate('/profil')
+    }
 
     const dataURLToFile = (dataurl: string | null | undefined, filename: string) => {
         if (dataurl !== null && dataurl !== undefined) {
@@ -18,7 +36,6 @@ const useProfil = () => {
         }
     }
 
-    const {userInfo} = useGlobal();
     const [avatar, setAvatar] = useState<string | null | undefined>('')
     let url = '';
     let key = '';
@@ -74,7 +91,7 @@ const useProfil = () => {
         }).catch(err => console.log(err))
     }
 
-    return {dataURLToFile, capture, setAvatar, avatar, getSignedUrlGet, userInfo}
+    return {dataURLToFile, capture, setAvatar, avatar, getSignedUrlGet, userInfo, updateProfilInfos}
 
 }
 
