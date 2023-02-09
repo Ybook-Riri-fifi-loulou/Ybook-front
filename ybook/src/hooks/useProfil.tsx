@@ -28,7 +28,7 @@ const useProfil = () => {
         setAvatar(imageSrc)
         let file = dataURLToFile(imageSrc, 'test.jpg')
         if (file !== undefined) {
-            await fetch('http://localhost:3100/post/presignedurl', {
+             fetch('http://localhost:3100/post/presignedurl', {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -45,7 +45,6 @@ const useProfil = () => {
                 method: 'PUT',
                 body: file,
             }).catch(err => console.log(err))
-            //body vide je sais pas pourquoi
             await fetch(`http://localhost:3100/user/${userInfo?.id}/profilePicture`, {
                 method: 'PUT',
                 body: key,
@@ -56,7 +55,8 @@ const useProfil = () => {
 
 
     const getSignedUrlGet = async (key: string|undefined) => {
-        await fetch(`http://localhost:3100/post/signedurlget/${key}`, {
+        console.log(key)
+        await fetch(`http://localhost:3100/post/signedurlget?key=${encodeURIComponent(key??"")}`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",

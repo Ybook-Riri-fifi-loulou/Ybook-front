@@ -8,7 +8,7 @@ export interface ProfilTabsProps {}
 
 const ProfilTabs: React.FC<ProfilTabsProps> = () => {
     return (
-        <Tabs defaultActiveKey='myOwnPost' id='profil-tabs' className="profil-tabs" justify>
+        <Tabs defaultActiveKey='myOwnPost' id='profil-tabs' className="profil-tabs" justified>
             <Tab eventKey='myOwnPost' title='Mes publications' className="profil-tabs__item">
                 <PostProvider>
                     <ListPosts whichposts={"myPosts"}/>
