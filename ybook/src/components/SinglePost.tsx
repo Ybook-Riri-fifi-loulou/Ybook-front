@@ -43,7 +43,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   return (
     <div className='post' key={post.id} id={`${post.id}`}>
       <div className="post-header">
-        <img src={avatar} alt="" className='post-header__image' width={48} height={48} loading="lazy" />
+        <img src={avatar!} alt="" className='post-header__image' width={48} height={48} loading="lazy" />
         <div className='post-header__content'>
           <span className='post-header__title'>{post.user['firstname']} {post.user['lastname']}</span>
           <span className='post-header__date'>Posté le {new Intl.DateTimeFormat('fr', { dateStyle: 'medium' }).format(new Date(post.createdAt))}</span>

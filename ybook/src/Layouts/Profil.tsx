@@ -35,7 +35,7 @@ const Profil: React.FC<ProfilProps> = () => {
                 <div className="container">
                     <div className="profil-page-header__content">
                         <div className="profil-page-header__avatar">
-                                <img src={avatar} className="rounded-circle" />
+                                <img src={avatar!} className="rounded-circle" />
                                 <a href="#" className="profil-page-header__update-photo" onClick={handleShow}><MdOutlineAddAPhoto /></a>
                         </div>
                         <div className="profil-page-header__infos">
