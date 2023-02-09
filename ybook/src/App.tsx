@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/_custom.scss';
 import Register from './components/Register';
 import Login from './components/Login';
+import {Chat} from './components/Chat';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Layouts/Header';
 import Footer from './Layouts/Footer';
@@ -10,6 +11,7 @@ import Home from './Layouts/Home';
 import Friends from './Layouts/Friends';
 import {useGlobal} from "./providers/GlobalProvider";
 import Profil from "./Layouts/Profil";
+import socketIO from 'socket.io-client';
 
 const location = window.location.pathname;
 
@@ -27,6 +29,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path='/friends' element={<Friends />} />
               <Route path='/profil' element={<Profil />} />
+              <Route path="/chat" element={<Chat />} />
             </Routes>
             <Footer />
           </>

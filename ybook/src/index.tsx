@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalProvider } from './providers/GlobalProvider';
 import 'bootstrap/dist/js/bootstrap.js';
+import { SocketContextComponent } from './components/Chat';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <GlobalProvider>
       <BrowserRouter>
+      <SocketContextComponent>
         <App />
+      </SocketContextComponent>
       </BrowserRouter>
     </GlobalProvider>
   </React.StrictMode>
