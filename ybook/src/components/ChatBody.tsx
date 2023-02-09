@@ -22,7 +22,7 @@ const ChatBody = ({ messages } : any) => {
         {messages.map((message : any) =>
           message.name === localStorage.getItem('userName') ? (
             <div className="message__chats" key={message.id}>
-              <p className="sender__name">You</p>
+              <p className="sender__name"></p>
               <div className="message__sender">
                 <p>{message.text}</p>
               </div>

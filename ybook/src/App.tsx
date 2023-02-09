@@ -15,8 +15,6 @@ import ChatPage from './components/Chat';
 
 const location = window.location.pathname;
 
-const socket = io('http://localhost:3200')
-
 function App() {
   const { userInfo } = useGlobal();
 
@@ -30,7 +28,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path='/friends' element={<Friends />} />
               <Route path='/profil' element={<Profil />} />
-              <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
+              <Route path="/chat" element={<ChatPage />}></Route>
             </Routes>
             <Footer />
           </>

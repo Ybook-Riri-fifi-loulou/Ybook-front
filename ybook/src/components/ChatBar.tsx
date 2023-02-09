@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { User } from '../hooks/useAuth';
 
 const ChatBar = ({ socket } : any) => {
-  const [users, setUsers] = useState([] as (User & {socketID: number})[]);
+  const [users, setUsers] = useState([] as (User & {userName: string} & {socketID: number})[]);
 
   useEffect(() => {
     socket.on('newUserResponse', (data : any) => setUsers(data));
@@ -15,7 +15,7 @@ const ChatBar = ({ socket } : any) => {
         <h4 className="chat__header">Utilisateurs</h4>
         <div className="chat__users">
           {users.map((user) => (
-            <p key={user.socketID}>{user.email}</p>
+            <p key={user.socketID}>{user.userName}</p>
           ))}
         </div>
       </div>
