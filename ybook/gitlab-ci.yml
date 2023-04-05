@@ -1,0 +1,28 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: node:18-alpine
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - echo "Start building App"
+    - npm ci
+    - npm run build
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - echo "Build successfully"
+  artifacts:
+    paths:
+      - build
+
+deploy:
+  stage: deploy
+  image: alpine
+  variables: 
+    GIT_STRATEGY: none # Dont clone the project, we only need artifact
+  script:
+    - ls
