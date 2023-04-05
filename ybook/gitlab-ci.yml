@@ -18,11 +18,15 @@ build:
   artifacts:
     paths:
       - build
+  tags:
+    - run-on-docker
 
 deploy:
   stage: deploy
   image: alpine
   variables: 
     GIT_STRATEGY: none # Dont clone the project, we only need artifact
+  tags:
+    - run-on-docker
   script:
     - ls
